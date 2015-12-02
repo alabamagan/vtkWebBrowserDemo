@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vtkCloudVisualization</title>
+    <script src="lib/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<h1 id="title" >VTK CloudVisualization Demo</h1>
+<button id="Render" class="vtkbut">Render</button>
+<button class="vtkbut" id="Rotation">Rotation</button>
+<button class="vtkbut" id="Zoom">Zoom</button>
+<button class="vtkbut" id="translation">Translation</button>
+<br><br>
+<img src="" alt="" id="ViewPort" style="width: 800px; height: 800px; border: solid;"> <br>
+<span id="debugmsg"></span>
+<script>
+
+    $(document).ready(function() {
+        d = new Date()
+        $("#Render").click(function() {
+            ajax_setting = {
+                url: "demo.php",
+                method: 'POST',
+                data: {ACTION: "VTKRender", USERID: 1234, DATAFILE: "DemoData/tract5000.vtk"},
+                dataType: 'html',
+                success: function(result){
+//                    $("#ViewPort").attr('src','imgs/1234.jpg?timestamp='+ d.getTime()); // TODO: Change to sending through byte array instead
+                    document.getElementById('ViewPort').src = "data:image/jpg;base64," + result;
+//                    $("#debugmsg").html(result)
+                }
+            };
+            $.ajax(ajax_setting)
+        })
+        $("#Rotation").click(function() {
+            ajax_setting = {
+                url: "demo.php",
+                method: 'POST',
+                data: {ACTION: "RotationDemo", USERID: 1234, DATAFILE: "DemoData/tract5000.vtk"},
+                dataType: 'html',
+                success: function(result){
+                    $("#ViewPort").attr('src',"data:image/jpg;base64," + result);// TODO: Change to sending through byte array instead
+//                    $("#debugmsg").html(result)
+                }
+            };
+            $.ajax(ajax_setting)
+        })
+        $("#Zoom").click(function() {
+            ajax_setting = {
+                url: "demo.php",
+                method: 'POST',
+                data: {ACTION: "ZoomingDemo", USERID: 1234, DATAFILE: "DemoData/tract5000.vtk"},
+                dataType: 'html',
+                success: function(result){
+                    $("#ViewPort").attr('src',"data:image/jpg;base64," + result);// TODO: Change to sending through byte array instead
+//                    $("#debugmsg").html(result)
+                }
+            };
+            $.ajax(ajax_setting)
+        })
+        $("#translation").click(function() {
+            ajax_setting = {
+                url: "demo.php",
+                method: 'POST',
+                data: {ACTION: "TranslationDemo", USERID: 1234, DATAFILE: "DemoData/tract5000.vtk"},
+                dataType: 'html',
+                success: function(result){
+                    $("#ViewPort").attr('src',"data:image/jpg;base64," + result);// TODO: Change to sending through byte array instead
+//                    $("#debugmsg").html(result)
+                }
+            };
+            $.ajax(ajax_setting)
+        })
+    })
+</script>
+</body>
+</html>
